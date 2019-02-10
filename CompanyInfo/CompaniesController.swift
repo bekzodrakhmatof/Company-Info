@@ -68,6 +68,7 @@ class CompaniesController: UITableViewController {
         present(navigationController, animated: true, completion: nil)
     }
     
+    // MARK: - Table View Delegate and Datasource
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView()
         view.backgroundColor = .headerColor
@@ -91,6 +92,32 @@ class CompaniesController: UITableViewController {
         cell.textLabel?.textColor = .white
         cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        let editAction = UITableViewRowAction(style: .normal, title: "Edit") { (_, indexPath) in
+            
+//            let company = self.companies[indexPath.row]
+            
+        }
+        
+        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { (_, indexPath) in
+
+            let company = self.companies[indexPath.row]
+            self.companies.remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            let context = CoreDataManager.shared.persistentContainer.viewContext
+            context.delete(company)
+            do {
+                try context.save()
+            } catch let error {
+                print("Failed to delete company: \(error)")
+            }
+            
+        }
+        
+        return [deleteAction, editAction]
     }
 }
 
