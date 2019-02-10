@@ -10,13 +10,13 @@ import UIKit
 
 class CompaniesController: UITableViewController {
     
-    let companies = [
-        Comapny(name: "Apple", founded: Date()),
-        Comapny(name: "Google", founded: Date()),
-        Comapny(name: "Facebook", founded: Date()),
+    var companies = [
+        Comapny(name: "Apple",     founded: Date()),
+        Comapny(name: "Google",    founded: Date()),
+        Comapny(name: "Facebook",  founded: Date()),
         Comapny(name: "Instagram", founded: Date()),
-        Comapny(name: "Telegram", founded: Date()),
-        Comapny(name: "VK", founded: Date())
+        Comapny(name: "Telegram",  founded: Date()),
+        Comapny(name: "VK",        founded: Date())
     ]
 
     override func viewDidLoad() {
@@ -37,15 +37,22 @@ class CompaniesController: UITableViewController {
     fileprivate func setupNavigationItem() {
         navigationItem.title = "Companies"
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handleAddCompany))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(handleAdd))
     }
     
     fileprivate func setupControllerView() {
         view.backgroundColor = .darkBlue
     }
     
+    @objc fileprivate func handleAdd() {
+        
+//        addComapny()
+    }
+    
     @objc fileprivate func handleAddCompany() {
         
         let createCompanyController = CreateCompanyController()
+        createCompanyController.delegate = self
         let navigationController = CustomNavigationController(rootViewController: createCompanyController)
         present(navigationController, animated: true, completion: nil)
     }
@@ -73,5 +80,14 @@ class CompaniesController: UITableViewController {
         cell.textLabel?.textColor = .white
         cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         return cell
+    }
+}
+
+extension CompaniesController: CreateCompanyControllerDelegate {
+    
+    func didAddComapany(company: Comapny) {
+        companies.append(company)
+        let newIndexPath = IndexPath(row: companies.count - 1, section: 0)
+        tableView.insertRows(at: [newIndexPath], with: .fade)
     }
 }
