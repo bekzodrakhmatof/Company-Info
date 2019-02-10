@@ -7,17 +7,12 @@
 //
 
 import UIKit
+import CoreData
 
 class CompaniesController: UITableViewController {
     
-    var companies = [
-        Comapny(name: "Apple",     founded: Date()),
-        Comapny(name: "Google",    founded: Date()),
-        Comapny(name: "Facebook",  founded: Date()),
-        Comapny(name: "Instagram", founded: Date()),
-        Comapny(name: "Telegram",  founded: Date()),
-        Comapny(name: "VK",        founded: Date())
-    ]
+    var companies = [Company]()
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +20,28 @@ class CompaniesController: UITableViewController {
         setupControllerView()
         setupNavigationItem()
         setupTableView()
+        fetchCompanies()
+    }
+    
+    fileprivate func fetchCompanies() {
+        
+        let persistentContainer = NSPersistentContainer(name: "ComapnyInfo")
+        persistentContainer.loadPersistentStores { (store, error) in
+            if let error = error {
+                fatalError("Loading of store failed: \(error)")
+            }
+        }
+        
+        let context = persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<Company>(entityName: "Company")
+        
+        do {
+            companies = try context.fetch(fetchRequest)
+           
+        } catch let error {
+            print("Failed to fetch date from Core Data: \(error)")
+        }
     }
     
     fileprivate func setupTableView() {
@@ -85,7 +102,7 @@ class CompaniesController: UITableViewController {
 
 extension CompaniesController: CreateCompanyControllerDelegate {
     
-    func didAddComapany(company: Comapny) {
+    func didAddComapany(company: Company) {
         companies.append(company)
         let newIndexPath = IndexPath(row: companies.count - 1, section: 0)
         tableView.insertRows(at: [newIndexPath], with: .fade)

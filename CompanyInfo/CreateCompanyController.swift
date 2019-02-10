@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import CoreData
 
 // Delegation
 protocol CreateCompanyControllerDelegate {
     
-    func didAddComapany(company: Comapny)
+    func didAddComapany(company: Company)
 }
 
 class CreateCompanyController: UIViewController {
@@ -81,12 +82,30 @@ class CreateCompanyController: UIViewController {
     
     @objc fileprivate func handleSave() {
         
-        dismiss(animated: true) {
-            
-            guard let name = self.nameTextField.text else { return }
-            
-            let comapany = Comapny(name: name, founded: Date())
-            self.delegate?.didAddComapany(company: comapany)
+        let persistentContainer = NSPersistentContainer(name: "ComapnyInfo")
+        persistentContainer.loadPersistentStores { (store, error) in
+            if let error = error {
+                fatalError("Loading of store failed: \(error)")
+            }
         }
+        
+        let context = persistentContainer.viewContext
+        
+        let company = NSEntityDescription.insertNewObject(forEntityName: "Company", into: context)
+        company.setValue(nameTextField.text!, forKey: "name")
+        
+        do {
+            try context.save()
+        } catch let error {
+            print("Error to save date into Core Data: \(error)")
+        }
+        
+//        dismiss(animated: true) {
+//            
+//            guard let name = self.nameTextField.text else { return }
+//            
+//            let comapany = Company(name: name, founded: Date())
+//            self.delegate?.didAddComapany(company: comapany)
+//        }
     }
 }

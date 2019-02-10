@@ -15,6 +15,7 @@
 		C3596E67220FB6D9007DA046 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3596E66220FB6D9007DA046 /* Company.swift */; };
 		C3596E69220FB9BA007DA046 /* CreateCompanyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3596E68220FB9BA007DA046 /* CreateCompanyController.swift */; };
 		C3596E6B220FBB28007DA046 /* UIColor+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3596E6A220FBB28007DA046 /* UIColor+Theme.swift */; };
+		C3596E6E220FE418007DA046 /* ComapnyInfo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C3596E6C220FE418007DA046 /* ComapnyInfo.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		C3596E66220FB6D9007DA046 /* Company.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
 		C3596E68220FB9BA007DA046 /* CreateCompanyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCompanyController.swift; sourceTree = "<group>"; };
 		C3596E6A220FBB28007DA046 /* UIColor+Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Theme.swift"; sourceTree = "<group>"; };
+		C3596E6D220FE418007DA046 /* ComapnyInfo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ComapnyInfo.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 				C3596E66220FB6D9007DA046 /* Company.swift */,
 				C3596E68220FB9BA007DA046 /* CreateCompanyController.swift */,
 				C3596E6A220FBB28007DA046 /* UIColor+Theme.swift */,
+				C3596E6C220FE418007DA046 /* ComapnyInfo.xcdatamodeld */,
 			);
 			path = CompanyInfo;
 			sourceTree = "<group>";
@@ -147,6 +150,7 @@
 				C3596E6B220FBB28007DA046 /* UIColor+Theme.swift in Sources */,
 				C3596E55220FAA21007DA046 /* CompaniesController.swift in Sources */,
 				C3596E53220FAA21007DA046 /* AppDelegate.swift in Sources */,
+				C3596E6E220FE418007DA046 /* ComapnyInfo.xcdatamodeld in Sources */,
 				C3596E67220FB6D9007DA046 /* Company.swift in Sources */,
 				C3596E69220FB9BA007DA046 /* CreateCompanyController.swift in Sources */,
 			);
@@ -348,6 +352,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		C3596E6C220FE418007DA046 /* ComapnyInfo.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				C3596E6D220FE418007DA046 /* ComapnyInfo.xcdatamodel */,
+			);
+			currentVersion = C3596E6D220FE418007DA046 /* ComapnyInfo.xcdatamodel */;
+			path = ComapnyInfo.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = C3596E47220FAA21007DA046 /* Project object */;
 }

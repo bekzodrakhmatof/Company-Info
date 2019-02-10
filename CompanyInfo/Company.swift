@@ -8,8 +8,8 @@
 
 import Foundation
 
-struct Comapny {
-    
-    let name: String
-    let founded: Date
-}
+//struct Comapny {
+//    
+//    let name: String
+//    let founded: Date
+//}
