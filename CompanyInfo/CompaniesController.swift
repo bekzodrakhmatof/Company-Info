@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  CompaniesController.swift
 //  CompanyInfo
 //
 //  Created by Bekzod Rakhmatov on 10/02/2019.
@@ -8,13 +8,21 @@
 
 import UIKit
 
-class ViewController: UITableViewController {
+class CompaniesController: UITableViewController {
+    
+    let companies = [
+        Comapny(name: "Apple", founded: Date()),
+        Comapny(name: "Google", founded: Date()),
+        Comapny(name: "Facebook", founded: Date()),
+        Comapny(name: "Instagram", founded: Date()),
+        Comapny(name: "Telegram", founded: Date()),
+        Comapny(name: "VK", founded: Date())
+    ]
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupControllerView()
-        setupNavigationStyle()
         setupNavigationItem()
         setupTableView()
     }
@@ -23,7 +31,7 @@ class ViewController: UITableViewController {
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "CellID")
         tableView.tableFooterView = UIView()
-        tableView.separatorColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        tableView.separatorColor = .white
     }
     
     fileprivate func setupNavigationItem() {
@@ -32,26 +40,19 @@ class ViewController: UITableViewController {
     }
     
     fileprivate func setupControllerView() {
-        view.backgroundColor = #colorLiteral(red: 0.03427499533, green: 0.1796538532, blue: 0.2549322844, alpha: 1)
+        view.backgroundColor = .darkBlue
     }
     
     @objc fileprivate func handleAddCompany() {
         
-        print("Adding company")
-    }
-    
-    fileprivate func setupNavigationStyle() {
-        
-        navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.9907192588, green: 0.2453143299, blue: 0.3300772309, alpha: 1)
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor:UIColor.white]
-        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor:UIColor.white]
+        let createCompanyController = CreateCompanyController()
+        let navigationController = CustomNavigationController(rootViewController: createCompanyController)
+        present(navigationController, animated: true, completion: nil)
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView()
-        view.backgroundColor = #colorLiteral(red: 0.8584463596, green: 0.9239813089, blue: 0.9592164159, alpha: 1)
+        view.backgroundColor = .headerColor
         return view
     }
     
@@ -60,17 +61,17 @@ class ViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 8
+        return companies.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "CellID", for: indexPath)
-        cell.backgroundColor = #colorLiteral(red: 0.17967695, green: 0.6459563375, blue: 0.7240403891, alpha: 1)
-        cell.textLabel?.text = "Company: \(indexPath.row)"
-        cell.textLabel?.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        let company = companies[indexPath.row]
+        cell.textLabel?.text = company.name
+        cell.backgroundColor = .lightBlue
+        cell.textLabel?.textColor = .white
         cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         return cell
     }
 }
-

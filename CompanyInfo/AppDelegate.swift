@@ -23,10 +23,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        UINavigationBar.appearance().tintColor = .white
+        UINavigationBar.appearance().isTranslucent = false
+        UINavigationBar.appearance().barTintColor = .barTintColor
+        UINavigationBar.appearance().prefersLargeTitles = true
+        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor:UIColor.white]
+        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor:UIColor.white]
+        
         window = UIWindow()
         window?.makeKeyAndVisible()
         
-        let rootViewController = ViewController()
+        let rootViewController = CompaniesController()
         let navigationController = CustomNavigationController(rootViewController: rootViewController)
         window?.rootViewController = navigationController
         return true
