@@ -25,19 +25,13 @@ class CompaniesController: UITableViewController {
     
     fileprivate func fetchCompanies() {
         
-        let persistentContainer = NSPersistentContainer(name: "ComapnyInfo")
-        persistentContainer.loadPersistentStores { (store, error) in
-            if let error = error {
-                fatalError("Loading of store failed: \(error)")
-            }
-        }
-        
-        let context = persistentContainer.viewContext
+        let context = CoreDataManager.shared.persistentContainer.viewContext
         
         let fetchRequest = NSFetchRequest<Company>(entityName: "Company")
         
         do {
-            companies = try context.fetch(fetchRequest)
+            self.companies = try context.fetch(fetchRequest)
+            self.tableView.reloadData()
            
         } catch let error {
             print("Failed to fetch date from Core Data: \(error)")
