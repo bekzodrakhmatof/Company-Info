@@ -96,28 +96,36 @@ class CompaniesController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
-        let editAction = UITableViewRowAction(style: .normal, title: "Edit") { (_, indexPath) in
-            
-//            let company = self.companies[indexPath.row]
-            
-        }
+        let editAction   = UITableViewRowAction(style: .normal,      title: "Edit",   handler: editHandlerFunction)
+        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete", handler: deleteHandlerFunction)
         
-        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { (_, indexPath) in
-
-            let company = self.companies[indexPath.row]
-            self.companies.remove(at: indexPath.row)
-            self.tableView.deleteRows(at: [indexPath], with: .automatic)
-            let context = CoreDataManager.shared.persistentContainer.viewContext
-            context.delete(company)
-            do {
-                try context.save()
-            } catch let error {
-                print("Failed to delete company: \(error)")
-            }
-            
-        }
+        editAction.backgroundColor   = .darkBlue
+        deleteAction.backgroundColor = .barTintColor
         
         return [deleteAction, editAction]
+    }
+    
+    fileprivate func deleteHandlerFunction(action: UITableViewRowAction, indexPath: IndexPath) {
+        
+        let company = self.companies[indexPath.row]
+        self.companies.remove(at: indexPath.row)
+        self.tableView.deleteRows(at: [indexPath], with: .automatic)
+        let context = CoreDataManager.shared.persistentContainer.viewContext
+        context.delete(company)
+        do {
+            try context.save()
+        } catch let error {
+            print("Failed to delete company: \(error)")
+        }
+    }
+    
+    fileprivate func editHandlerFunction(action: UITableViewRowAction, indexPath: IndexPath) {
+        
+        let editCompanyController = CreateCompanyController()
+        editCompanyController.company = companies[indexPath.row]
+        editCompanyController.delegate = self
+        let navigationController = CustomNavigationController(rootViewController: editCompanyController)
+        present(navigationController, animated: true)
     }
 }
 
@@ -126,6 +134,13 @@ extension CompaniesController: CreateCompanyControllerDelegate {
     func didAddComapany(company: Company) {
         companies.append(company)
         let newIndexPath = IndexPath(row: companies.count - 1, section: 0)
-        tableView.insertRows(at: [newIndexPath], with: .fade)
+        tableView.insertRows(at: [newIndexPath], with: .automatic)
+    }
+    
+    func didEditComapany(company: Company) {
+        
+        let row = companies.index(of: company)
+        let reloadIndexPath = IndexPath(row: row!, section: 0)
+        tableView.reloadRows(at: [reloadIndexPath], with: .middle)
     }
 }

@@ -13,11 +13,17 @@ import CoreData
 protocol CreateCompanyControllerDelegate {
     
     func didAddComapany(company: Company)
+    func didEditComapany(company: Company)
 }
 
 class CreateCompanyController: UIViewController {
     
     var delegate: CreateCompanyControllerDelegate?
+    var company: Company? {
+        didSet {
+            nameTextField.text = company?.name
+        }
+    }
     
     let lightBlueBackgroundView: UIView = {
         let view = UIView()
@@ -47,8 +53,14 @@ class CreateCompanyController: UIViewController {
         setupNavigationItem()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationItem.title = company == nil ? "Create Company" : "Edit Company"
+    }
+    
     fileprivate func setupNavigationItem() {
-        navigationItem.title = "Create Company"
+
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(handleCancel))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(handleSave))
     }
@@ -82,6 +94,27 @@ class CreateCompanyController: UIViewController {
     
     @objc fileprivate func handleSave() {
 
+        company == nil ? createCompany() : saveCompanyChanges()
+    }
+    
+    fileprivate func saveCompanyChanges() {
+        
+        let context = CoreDataManager.shared.persistentContainer.viewContext
+        
+        company!.name = nameTextField.text
+        
+        do {
+            try context.save()
+            dismiss(animated: true) {
+                self.delegate?.didEditComapany(company: self.company!)
+            }
+        } catch let error {
+            print("Error to save date into Core Data: \(error)")
+        }
+    }
+    
+    fileprivate func createCompany() {
+        
         let context = CoreDataManager.shared.persistentContainer.viewContext
         
         let company = NSEntityDescription.insertNewObject(forEntityName: "Company", into: context)
