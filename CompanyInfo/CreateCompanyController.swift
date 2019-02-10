@@ -26,6 +26,14 @@ class CreateCompanyController: UIViewController {
         }
     }
     
+    lazy var companyImageView: UIImageView = {
+        let imgView = UIImageView(image: #imageLiteral(resourceName: "select_photo_empty"))
+        imgView.translatesAutoresizingMaskIntoConstraints = false
+        imgView.isUserInteractionEnabled = true
+        imgView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleSelectPhoto)))
+        return imgView
+    }()
+    
     let lightBlueBackgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.headerColor
@@ -67,6 +75,14 @@ class CreateCompanyController: UIViewController {
         navigationItem.title = company == nil ? "Create Company" : "Edit Company"
     }
     
+    @objc fileprivate func handleSelectPhoto() {
+        
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.allowsEditing = true
+        present(imagePickerController, animated: true, completion: nil)
+    }
+    
     fileprivate func setupNavigationItem() {
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(handleCancel))
@@ -79,11 +95,17 @@ class CreateCompanyController: UIViewController {
         view.addSubview(lightBlueBackgroundView)
         lightBlueBackgroundView.topAnchor.constraint(equalTo: view.topAnchor).isActive           = true
         lightBlueBackgroundView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive         = true
-        lightBlueBackgroundView.heightAnchor.constraint(equalToConstant: 250).isActive           = true
+        lightBlueBackgroundView.heightAnchor.constraint(equalToConstant: 350).isActive           = true
         lightBlueBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         
+        view.addSubview(companyImageView)
+        companyImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 8).isActive = true
+        companyImageView.heightAnchor.constraint(equalToConstant: 100).isActive              = true
+        companyImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive      = true
+        companyImageView.widthAnchor.constraint(equalToConstant: 100).isActive               = true
+        
         view.addSubview(nameLabel)
-        nameLabel.topAnchor.constraint(equalTo: view.topAnchor).isActive                 = true
+        nameLabel.topAnchor.constraint(equalTo: companyImageView.bottomAnchor).isActive  = true
         nameLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16).isActive = true
         nameLabel.heightAnchor.constraint(equalToConstant: 50).isActive                  = true
         nameLabel.widthAnchor.constraint(equalToConstant: 100).isActive                  = true
@@ -144,5 +166,22 @@ class CreateCompanyController: UIViewController {
         } catch let error {
             print("Error to save date into Core Data: \(error)")
         }
+    }
+}
+
+extension CreateCompanyController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            companyImageView.image = editedImage
+        } else if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            companyImageView.image = originalImage
+        }
+        dismiss(animated: true, completion: nil)
     }
 }
