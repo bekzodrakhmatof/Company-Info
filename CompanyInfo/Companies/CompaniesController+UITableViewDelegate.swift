@@ -10,6 +10,12 @@ import UIKit
 
 extension CompaniesController {
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let employeesController = EmployeesController()
+        employeesController.company = companies[indexPath.row]
+        navigationController?.pushViewController(employeesController, animated: true)
+    }
+    
     func setupTableView() {
         
         tableView.register(CompanyCell.self, forCellReuseIdentifier: "CellID")
