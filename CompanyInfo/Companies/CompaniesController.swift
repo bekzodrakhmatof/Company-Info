@@ -13,7 +13,6 @@ class CompaniesController: UITableViewController {
     
     var companies = [Company]()
 
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -40,7 +39,7 @@ class CompaniesController: UITableViewController {
     
     fileprivate func setupTableView() {
         
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "CellID")
+        tableView.register(CompanyCell.self, forCellReuseIdentifier: "CellID")
         tableView.tableFooterView = UIView()
         tableView.separatorColor = .white
     }
@@ -69,13 +68,10 @@ class CompaniesController: UITableViewController {
                 let indexPath = IndexPath(item: index, section: 0)
                 indexPathToRemove.append(indexPath)
             }
-//            companies.forEach { (company) in
-//                companies.index
-//            }
+
             companies.removeAll()
             tableView.deleteRows(at: indexPathToRemove, with: .top)
-//            companies.removeAll()
-//            tableView.reloadData()
+
         } catch let error {
             print("Failed to delete objects from Core Data: \(error)")
         }
@@ -120,30 +116,14 @@ class CompaniesController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CellID", for: indexPath)
-        let company = companies[indexPath.row]
-        
-        if let name = company.name, let founded = company.founded {
-            
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MMM dd, yyyy"
-            let foundedDateString = dateFormatter.string(from: founded)
-        
-            cell.textLabel?.text = "\(name) - Founded: \(foundedDateString)"
-        } else {
-            cell.textLabel?.text = company.name
-        }
-        
-        cell.backgroundColor = .lightBlue
-        cell.textLabel?.textColor = .white
-        cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        cell.imageView?.image = #imageLiteral(resourceName: "select_photo_empty")
-        if let imageData = company.imageData {
-            let companyImage = UIImage(data: imageData)
-            cell.imageView?.image = companyImage
-        }
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CellID", for: indexPath) as! CompanyCell
+        cell.company = companies[indexPath.row]
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        return 60
     }
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
