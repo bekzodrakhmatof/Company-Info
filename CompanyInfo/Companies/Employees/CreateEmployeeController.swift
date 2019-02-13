@@ -8,7 +8,14 @@
 
 import UIKit
 
+protocol CreateEmployeeControllerDelegate {
+    
+    func didAddEmployee(employee: Employee)
+}
+
 class CreateEmployeeController: UIViewController {
+    
+    var delegate: CreateEmployeeControllerDelegate?
 
     let nameLabel: UILabel = {
         let label = UILabel()
@@ -41,12 +48,14 @@ class CreateEmployeeController: UIViewController {
         
         if let name = nameTextField.text {
             
-            let error = CoreDataManager.shared.createEmployee(employeeName: name)
+            let tuple = CoreDataManager.shared.createEmployee(employeeName: name)
             
-            if let error = error {
+            if let error = tuple.1 {
                 print("Error has been occured: \(error)")
             } else {
-                dismiss(animated: true, completion: nil)
+                dismiss(animated: true, completion: {
+                    self.delegate?.didAddEmployee(employee: tuple.0!)
+                })
             }
         }
     }

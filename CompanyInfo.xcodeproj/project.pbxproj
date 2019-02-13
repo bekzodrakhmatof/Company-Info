@@ -60,6 +60,7 @@
 		C331E083221300DA00DB50D0 /* Companies */ = {
 			isa = PBXGroup;
 			children = (
+				C3FE46C022143C7B00C699BB /* Employees */,
 				C3596E54220FAA21007DA046 /* CompaniesController.swift */,
 				C331E0812213000400DB50D0 /* CompanyCell.swift */,
 				C331E084221307CD00DB50D0 /* CompaniesController+CreateCompanyControllerDelegate.swift */,
@@ -107,10 +108,17 @@
 				C3596E6A220FBB28007DA046 /* UIColor+Theme.swift */,
 				C3596E6C220FE418007DA046 /* ComapnyInfo.xcdatamodeld */,
 				C3596E6F220FEAA9007DA046 /* CoreDataManager.swift */,
+			);
+			path = CompanyInfo;
+			sourceTree = "<group>";
+		};
+		C3FE46C022143C7B00C699BB /* Employees */ = {
+			isa = PBXGroup;
+			children = (
 				C331E08822130CA800DB50D0 /* EmployeesController.swift */,
 				C331E08D22130F6900DB50D0 /* CreateEmployeeController.swift */,
 			);
-			path = CompanyInfo;
+			path = Employees;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
