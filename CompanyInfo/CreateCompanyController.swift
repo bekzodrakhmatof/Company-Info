@@ -38,14 +38,7 @@ class CreateCompanyController: UIViewController {
         imgView.contentMode = .scaleAspectFill
         return imgView
     }()
-    
-    let lightBlueBackgroundView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.headerColor
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
+
     let nameLabel: UILabel = {
         let label = UILabel()
         label.text = "Name"
@@ -104,11 +97,7 @@ class CreateCompanyController: UIViewController {
     fileprivate func setupControllerView() {
         view.backgroundColor = .darkBlue
         
-        view.addSubview(lightBlueBackgroundView)
-        lightBlueBackgroundView.topAnchor.constraint(equalTo: view.topAnchor).isActive           = true
-        lightBlueBackgroundView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive         = true
-        lightBlueBackgroundView.heightAnchor.constraint(equalToConstant: 350).isActive           = true
-        lightBlueBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        let lightSetupBackgroundView = setupLightBackgroundView(height: 350)
         
         view.addSubview(companyImageView)
         companyImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 8).isActive = true
@@ -132,7 +121,7 @@ class CreateCompanyController: UIViewController {
         datePicker.topAnchor.constraint(equalTo: nameLabel.bottomAnchor).isActive                  = true
         datePicker.leftAnchor.constraint(equalTo: view.leftAnchor).isActive                        = true
         datePicker.rightAnchor.constraint(equalTo: view.rightAnchor).isActive                      = true
-        datePicker.bottomAnchor.constraint(equalTo: lightBlueBackgroundView.bottomAnchor).isActive = true
+        datePicker.bottomAnchor.constraint(equalTo: lightSetupBackgroundView.bottomAnchor).isActive = true
     }
     
     @objc fileprivate func handleSave() {
