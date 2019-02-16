@@ -28,8 +28,49 @@ class CompaniesController: UITableViewController {
         setupPlusButtonInNavBar(selector: #selector(handleAddCompany))
         navigationItem.leftBarButtonItems = [
             UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(handleReset)),
-            UIBarButtonItem(title: "Do Update", style: .plain, target: self, action: #selector(handleDoUpdate))
+            UIBarButtonItem(title: "Nested updates", style: .plain, target: self, action: #selector(handleNestedUpdate))
         ]
+    }
+    
+    @objc fileprivate func handleNestedUpdate() {
+        DispatchQueue.global(qos: .background).async {
+            let privateContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+            privateContext.parent = CoreDataManager.shared.persistentContainer.viewContext
+            
+            let request: NSFetchRequest<Company> = Company.fetchRequest()
+            request.fetchLimit = 1
+            do {
+                let companies = try privateContext.fetch(request)
+                companies.forEach({ (company) in
+                    print(company.name ?? "")
+                    company.name = "D: \(company.name ?? "")"
+                })
+                
+                do {
+                    try privateContext.save()
+                    
+                    DispatchQueue.main.async {
+                        
+                        do {
+                            let context = CoreDataManager.shared.persistentContainer.viewContext
+                            
+                            if context.hasChanges {
+                                try context.save()
+                            }
+                            
+                        } catch let error {
+                            print("Failed to save main context: \(error)")
+                        }
+                        self.tableView.reloadData()
+                    }
+                } catch let error {
+                    print("Failed to update company on private context: \(error)")
+                }
+            } catch let error {
+                print("Failed to fetch companies on private context: \(error)")
+            }
+            
+        }
     }
     
     @objc fileprivate func handleDoUpdate() {
