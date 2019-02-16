@@ -103,7 +103,7 @@ class CreateEmployeeController: UIViewController {
         _ = setupLightBackgroundView(height: 100)
         
         view.addSubview(nameLabel)
-        nameLabel.topAnchor.constraint(equalTo: view.topAnchor).isActive  = true
+        nameLabel.topAnchor.constraint(equalTo: view.topAnchor).isActive                 = true
         nameLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16).isActive = true
         nameLabel.heightAnchor.constraint(equalToConstant: 50).isActive                  = true
         nameLabel.widthAnchor.constraint(equalToConstant: 100).isActive                  = true
