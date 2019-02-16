@@ -57,7 +57,12 @@ class EmployeesController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CellID", for: indexPath)
-        cell.textLabel?.text = employees[indexPath.row].name
+        let emplyee = employees[indexPath.row]
+        cell.textLabel?.text = emplyee.name
+        
+        if let taxId = emplyee.employeeInformation?.taxId {
+            cell.textLabel?.text = "\(emplyee.name ?? "")    \(taxId)"
+        }
         cell.backgroundColor = UIColor.lightBlue
         cell.textLabel?.textColor = .white
         cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 16)
