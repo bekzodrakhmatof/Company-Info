@@ -23,6 +23,7 @@
 		C3596E6B220FBB28007DA046 /* UIColor+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3596E6A220FBB28007DA046 /* UIColor+Theme.swift */; };
 		C3596E6E220FE418007DA046 /* ComapnyInfo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C3596E6C220FE418007DA046 /* ComapnyInfo.xcdatamodeld */; };
 		C3596E70220FEAA9007DA046 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3596E6F220FEAA9007DA046 /* CoreDataManager.swift */; };
+		C388CF2B2217F70600CE8734 /* EmployeeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C388CF2A2217F70600CE8734 /* EmployeeType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		C3596E6A220FBB28007DA046 /* UIColor+Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Theme.swift"; sourceTree = "<group>"; };
 		C3596E6D220FE418007DA046 /* ComapnyInfo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ComapnyInfo.xcdatamodel; sourceTree = "<group>"; };
 		C3596E6F220FEAA9007DA046 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		C388CF2A2217F70600CE8734 /* EmployeeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +119,7 @@
 			children = (
 				C331E08822130CA800DB50D0 /* EmployeesController.swift */,
 				C331E08D22130F6900DB50D0 /* CreateEmployeeController.swift */,
+				C388CF2A2217F70600CE8734 /* EmployeeType.swift */,
 			);
 			path = Employees;
 			sourceTree = "<group>";
@@ -199,6 +202,7 @@
 				C331E08C22130E6300DB50D0 /* UIViewController+Helpers.swift in Sources */,
 				C331E087221308A500DB50D0 /* CompaniesController+UITableViewDelegate.swift in Sources */,
 				C331E0822213000400DB50D0 /* CompanyCell.swift in Sources */,
+				C388CF2B2217F70600CE8734 /* EmployeeType.swift in Sources */,
 				C331E08E22130F6900DB50D0 /* CreateEmployeeController.swift in Sources */,
 				C331E08922130CA800DB50D0 /* EmployeesController.swift in Sources */,
 				C3596E6E220FE418007DA046 /* ComapnyInfo.xcdatamodeld in Sources */,

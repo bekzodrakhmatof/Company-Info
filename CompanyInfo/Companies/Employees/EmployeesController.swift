@@ -20,8 +20,7 @@ class IndentedLabel: UILabel {
 class EmployeesController: UITableViewController {
     
     var company: Company?
-    var employees = [Employee]()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchEmployees()
@@ -37,37 +36,23 @@ class EmployeesController: UITableViewController {
         navigationItem.title = company?.name
     }
     
+    var allEmployees = [[Employee]]()
+    var employeeTypes = [
+        EmployeeType.Executive.rawValue,
+        EmployeeType.SeniorManagement.rawValue,
+        EmployeeType.Staff.rawValue,
+        EmployeeType.Intern.rawValue
+    ]
+    
     fileprivate func fetchEmployees() {
         
         guard let companyEmployees = company?.employees?.allObjects as? [Employee] else { return }
-        
-        
-        shortNameEmployees = companyEmployees.filter({ (employee) -> Bool in
-            if let count = employee.name?.count {
-                return count < 6
-            }
-            return false
-        })
-        
-        longNameEmployees = companyEmployees.filter({ (employee) -> Bool in
-            if let count = employee.name?.count {
-                return count > 5 && count < 9
-            }
-            return false
-        })
-        
-        reallyLongNameEmployees = companyEmployees.filter({ (employee) -> Bool in
-            if let count = employee.name?.count {
-                return count > 9
-            }
-            return false
-        })
-        
-        allEmployees = [
-            shortNameEmployees,
-            longNameEmployees,
-            reallyLongNameEmployees
-        ]
+        allEmployees = []
+        employeeTypes.forEach { (employeeType) in
+            allEmployees.append(
+                companyEmployees.filter{ $0.type == employeeType}
+            )
+        }
     }
     
     @objc fileprivate func handleAdd() {
@@ -82,22 +67,11 @@ class EmployeesController: UITableViewController {
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let label = IndentedLabel()
         label.backgroundColor = .headerColor
-        if section == 0 {
-            label.text = "Short name"
-        } else if section == 1 {
-            label.text = "Long name"
-        } else {
-            label.text = "Really long name"
-        }
+        label.text = employeeTypes[section]
         label.textColor = .darkBlue
         label.font = UIFont.boldSystemFont(ofSize: 16)
         return label
     }
-    
-    var shortNameEmployees = [Employee]()
-    var longNameEmployees  = [Employee]()
-    var reallyLongNameEmployees  = [Employee]()
-    var allEmployees = [[Employee]]()
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
@@ -128,9 +102,7 @@ class EmployeesController: UITableViewController {
             dateFormatter.dateFormat = "MMM dd, yyyy"
             cell.textLabel?.text = "\(emplyee.name ?? "")    \(dateFormatter.string(from: birthday))"
         }
-//        if let taxId = emplyee.employeeInformation?.taxId {
-//            cell.textLabel?.text = "\(emplyee.name ?? "")    \(taxId)"
-//        }
+
         cell.backgroundColor = UIColor.lightBlue
         cell.textLabel?.textColor = .white
         cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 16)
@@ -141,7 +113,11 @@ class EmployeesController: UITableViewController {
 extension EmployeesController: CreateEmployeeControllerDelegate {
     
     func didAddEmployee(employee: Employee) {
-        employees.append(employee)
-        tableView.reloadData()
+
+        guard let section = employeeTypes.index(of: employee.type!) else { return }
+        let row = allEmployees[section].count
+        let insertionIndexPath = IndexPath(row: row, section: section)
+        allEmployees[section].append(employee)
+        tableView.insertRows(at: [insertionIndexPath], with: .middle)
     }
 }
