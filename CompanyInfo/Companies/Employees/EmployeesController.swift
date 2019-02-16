@@ -53,9 +53,14 @@ class EmployeesController: UITableViewController {
         let emplyee = employees[indexPath.row]
         cell.textLabel?.text = emplyee.name
         
-        if let taxId = emplyee.employeeInformation?.taxId {
-            cell.textLabel?.text = "\(emplyee.name ?? "")    \(taxId)"
+        if let birthday = emplyee.employeeInformation?.birthday {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MMM dd, yyyy"
+            cell.textLabel?.text = "\(emplyee.name ?? "")    \(dateFormatter.string(from: birthday))"
         }
+//        if let taxId = emplyee.employeeInformation?.taxId {
+//            cell.textLabel?.text = "\(emplyee.name ?? "")    \(taxId)"
+//        }
         cell.backgroundColor = UIColor.lightBlue
         cell.textLabel?.textColor = .white
         cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 16)
