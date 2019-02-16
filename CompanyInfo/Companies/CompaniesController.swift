@@ -28,14 +28,45 @@ class CompaniesController: UITableViewController {
         setupPlusButtonInNavBar(selector: #selector(handleAddCompany))
         navigationItem.leftBarButtonItems = [
             UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(handleReset)),
-            UIBarButtonItem(title: "Do Work", style: .plain, target: self, action: #selector(handleDoWork))
+            UIBarButtonItem(title: "Do Update", style: .plain, target: self, action: #selector(handleDoUpdate))
         ]
+    }
+    
+    @objc fileprivate func handleDoUpdate() {
+        
+        CoreDataManager.shared.persistentContainer.performBackgroundTask { (backgroundContext) in
+            
+            let request: NSFetchRequest<Company> = Company.fetchRequest()
+            
+            do {
+                let companies = try backgroundContext.fetch(request)
+                companies.forEach({ (company) in
+                    print(company.name ?? "")
+                    company.name = "C: \(company.name ?? "")"
+                })
+                
+                do {
+                    try backgroundContext.save()
+                    DispatchQueue.main.async {
+                        CoreDataManager.shared.persistentContainer.viewContext.reset()
+                        self.companies = CoreDataManager.shared.fetchCompanies()
+                        self.tableView.reloadData()
+                    }
+                } catch let error {
+                    print("Failed to save on background: \(error)")
+                }
+                
+            } catch let error {
+                print("Failed to fetch companies on background: \(error)")
+            }
+            
+        }
     }
     
     @objc fileprivate func handleDoWork() {
         
         CoreDataManager.shared.persistentContainer.performBackgroundTask({ (backgroundContext) in
-            (0...1200000).forEach { (value) in
+            (0...5).forEach { (value) in
                 print(value)
                 let company = Company(context: backgroundContext)
                 company.name = String(value)
@@ -43,11 +74,18 @@ class CompaniesController: UITableViewController {
             
             do {
                 try backgroundContext.save()
+                
+                DispatchQueue.main.async {
+                    self.companies = CoreDataManager.shared.fetchCompanies()
+                    self.tableView.reloadData()
+                }
             } catch {
                 print("Failed")
             }
         })
     }
+    
+    
     
     fileprivate func setupControllerView() {
         
