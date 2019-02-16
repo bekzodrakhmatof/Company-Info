@@ -30,22 +30,15 @@ class EmployeesController: UITableViewController {
     
     fileprivate func fetchEmployees() {
         
-        let context = CoreDataManager.shared.persistentContainer.viewContext
-        let request = NSFetchRequest<Employee>(entityName: "Employee")
-        
-        do {
-            let employees = try context.fetch(request)
-            self.employees = employees
-            tableView.reloadData()
-        } catch let error {
-            print("Failed to fetch employees: \(error)")
-        }
+        guard let companyEmployees = company?.employees?.allObjects as? [Employee] else { return }
+        self.employees = companyEmployees
     }
     
     @objc fileprivate func handleAdd() {
         
         let createEmployeeController = CreateEmployeeController()
         createEmployeeController.delegate = self
+        createEmployeeController.company = company
         let navigationController = CustomNavigationController(rootViewController: createEmployeeController)
         present(navigationController, animated: true, completion: nil)
     }
