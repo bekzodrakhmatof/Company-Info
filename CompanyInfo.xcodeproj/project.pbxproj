@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C313A26D2219077000845F81 /* CompaniesAutoUpdateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C313A26C2219077000845F81 /* CompaniesAutoUpdateController.swift */; };
+		C313A26F2219117C00845F81 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = C313A26E2219117C00845F81 /* Service.swift */; };
 		C331E0822213000400DB50D0 /* CompanyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C331E0812213000400DB50D0 /* CompanyCell.swift */; };
 		C331E085221307CD00DB50D0 /* CompaniesController+CreateCompanyControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C331E084221307CD00DB50D0 /* CompaniesController+CreateCompanyControllerDelegate.swift */; };
 		C331E087221308A500DB50D0 /* CompaniesController+UITableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C331E086221308A500DB50D0 /* CompaniesController+UITableViewDelegate.swift */; };
@@ -29,6 +30,7 @@
 
 /* Begin PBXFileReference section */
 		C313A26C2219077000845F81 /* CompaniesAutoUpdateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompaniesAutoUpdateController.swift; sourceTree = "<group>"; };
+		C313A26E2219117C00845F81 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		C331E0812213000400DB50D0 /* CompanyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyCell.swift; sourceTree = "<group>"; };
 		C331E084221307CD00DB50D0 /* CompaniesController+CreateCompanyControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CompaniesController+CreateCompanyControllerDelegate.swift"; sourceTree = "<group>"; };
 		C331E086221308A500DB50D0 /* CompaniesController+UITableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CompaniesController+UITableViewDelegate.swift"; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 				C331E0812213000400DB50D0 /* CompanyCell.swift */,
 				C331E084221307CD00DB50D0 /* CompaniesController+CreateCompanyControllerDelegate.swift */,
 				C331E086221308A500DB50D0 /* CompaniesController+UITableViewDelegate.swift */,
+				C313A26E2219117C00845F81 /* Service.swift */,
 			);
 			path = Companies;
 			sourceTree = "<group>";
@@ -207,6 +210,7 @@
 				C331E0822213000400DB50D0 /* CompanyCell.swift in Sources */,
 				C388CF2B2217F70600CE8734 /* EmployeeType.swift in Sources */,
 				C331E08E22130F6900DB50D0 /* CreateEmployeeController.swift in Sources */,
+				C313A26F2219117C00845F81 /* Service.swift in Sources */,
 				C331E08922130CA800DB50D0 /* EmployeesController.swift in Sources */,
 				C3596E6E220FE418007DA046 /* ComapnyInfo.xcdatamodeld in Sources */,
 				C313A26D2219077000845F81 /* CompaniesAutoUpdateController.swift in Sources */,

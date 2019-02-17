@@ -46,12 +46,14 @@ class CompaniesAutoUpdateController: UITableViewController, NSFetchedResultsCont
         fetchResutsController.fetchedObjects?.forEach({ (company) in
             print(company.name ?? "")
         })
+        
+        Service.shared.donwloadCompaniesFromServer()
     }
     
     @objc fileprivate func handleDelete() {
         
         let request: NSFetchRequest<Company> = Company.fetchRequest()
-        request.predicate = NSPredicate(format: "name CONTAINS %@", "Z")
+//        request.predicate = NSPredicate(format: "name CONTAINS %@", "Z")
         let context = CoreDataManager.shared.persistentContainer.viewContext
         do {
             let companiesWwithB = try context.fetch(request)
