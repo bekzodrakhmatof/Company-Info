@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C313A26D2219077000845F81 /* CompaniesAutoUpdateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C313A26C2219077000845F81 /* CompaniesAutoUpdateController.swift */; };
 		C331E0822213000400DB50D0 /* CompanyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C331E0812213000400DB50D0 /* CompanyCell.swift */; };
 		C331E085221307CD00DB50D0 /* CompaniesController+CreateCompanyControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C331E084221307CD00DB50D0 /* CompaniesController+CreateCompanyControllerDelegate.swift */; };
 		C331E087221308A500DB50D0 /* CompaniesController+UITableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C331E086221308A500DB50D0 /* CompaniesController+UITableViewDelegate.swift */; };
@@ -27,6 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C313A26C2219077000845F81 /* CompaniesAutoUpdateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompaniesAutoUpdateController.swift; sourceTree = "<group>"; };
 		C331E0812213000400DB50D0 /* CompanyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyCell.swift; sourceTree = "<group>"; };
 		C331E084221307CD00DB50D0 /* CompaniesController+CreateCompanyControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CompaniesController+CreateCompanyControllerDelegate.swift"; sourceTree = "<group>"; };
 		C331E086221308A500DB50D0 /* CompaniesController+UITableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CompaniesController+UITableViewDelegate.swift"; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 				C3596E6A220FBB28007DA046 /* UIColor+Theme.swift */,
 				C3596E6C220FE418007DA046 /* ComapnyInfo.xcdatamodeld */,
 				C3596E6F220FEAA9007DA046 /* CoreDataManager.swift */,
+				C313A26C2219077000845F81 /* CompaniesAutoUpdateController.swift */,
 			);
 			path = CompanyInfo;
 			sourceTree = "<group>";
@@ -206,6 +209,7 @@
 				C331E08E22130F6900DB50D0 /* CreateEmployeeController.swift in Sources */,
 				C331E08922130CA800DB50D0 /* EmployeesController.swift in Sources */,
 				C3596E6E220FE418007DA046 /* ComapnyInfo.xcdatamodeld in Sources */,
+				C313A26D2219077000845F81 /* CompaniesAutoUpdateController.swift in Sources */,
 				C3596E67220FB6D9007DA046 /* Company.swift in Sources */,
 				C3596E70220FEAA9007DA046 /* CoreDataManager.swift in Sources */,
 				C3596E69220FB9BA007DA046 /* CreateCompanyController.swift in Sources */,
