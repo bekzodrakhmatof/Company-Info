@@ -47,7 +47,17 @@ class CompaniesAutoUpdateController: UITableViewController, NSFetchedResultsCont
             print(company.name ?? "")
         })
         
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
+        refreshControl.tintColor = .white
+        self.refreshControl = refreshControl
+    
+    }
+    
+    @objc fileprivate func handleRefresh() {
+        
         Service.shared.donwloadCompaniesFromServer()
+        self.refreshControl?.endRefreshing()
     }
     
     @objc fileprivate func handleDelete() {
@@ -155,6 +165,12 @@ class CompaniesAutoUpdateController: UITableViewController, NSFetchedResultsCont
         let company = fetchResutsController.object(at: indexPath)
         cell.company = company
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let employeesListController = EmployeesController()
+        employeesListController.company = fetchResutsController.object(at: indexPath)
+        navigationController?.pushViewController(employeesListController, animated: true)
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
