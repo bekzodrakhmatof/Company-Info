@@ -27,8 +27,7 @@ class CompaniesController: UITableViewController {
         navigationItem.title = "Companies"
         setupPlusButtonInNavBar(selector: #selector(handleAddCompany))
         navigationItem.leftBarButtonItems = [
-            UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(handleReset)),
-            UIBarButtonItem(title: "Nested updates", style: .plain, target: self, action: #selector(handleNestedUpdate))
+            UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(handleReset))
         ]
     }
     

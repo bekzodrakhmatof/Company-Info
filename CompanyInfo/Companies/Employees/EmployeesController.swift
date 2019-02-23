@@ -88,6 +88,19 @@ class EmployeesController: UITableViewController {
         return allEmployees[section].count
     }
     
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        let editAction   = UITableViewRowAction(style: .normal,      title: "Edit",   handler: editHandlerFunction)
+        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete", handler: deleteHandlerFunction)
+        
+        editAction.backgroundColor   = .darkBlue
+        deleteAction.backgroundColor = .barTintColor
+        
+        return [deleteAction, editAction]
+    }
+    
+    
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CellID", for: indexPath)
         
